@@ -3,10 +3,16 @@ using System.Text;
 using BrokeragePortal.Api;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Load user secrets unconditionally, not just when ASPNETCORE_ENVIRONMENT=Development,
+// so the connection string also resolves when the app is run as a plain built executable.
+builder.Configuration.AddUserSecrets<Program>(optional: true);
+
 var app = builder.Build();
 
-var connectionString = builder.Configuration.GetConnectionString("SettlementDb")
-    ?? throw new InvalidOperationException(
+var connectionString = builder.Configuration.GetConnectionString("SettlementDb");
+if (string.IsNullOrWhiteSpace(connectionString))
+    throw new InvalidOperationException(
         "Connection string 'SettlementDb' is not configured. Set it via 'dotnet user-secrets' " +
         "(see README) or an environment variable.");
 
