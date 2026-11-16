@@ -484,3 +484,6 @@ $RECYCLE.BIN/
 *.swp
 # Local personal notes kept outside of version control
 /*.html
+
+# Local Azurite storage emulator data
+/.azurite/
