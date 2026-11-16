@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Brokerage Portal</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 420px; margin: 60px auto; padding: 0 16px; color: #17202a; }
+  .banner { background: #fde7d8; border: 1px solid #e8a35c; padding: 8px 12px; border-radius: 6px; font-size: 13px; margin-bottom: 24px; }
+  h1 { font-size: 22px; }
+  label { display: block; margin: 12px 0 4px; font-size: 14px; }
+  input { width: 100%; padding: 8px; box-sizing: border-box; font-size: 14px; }
+  button { margin-top: 16px; padding: 8px 16px; cursor: pointer; font-size: 14px; }
+  #dashboard { display: none; }
+  .error { color: #af2a22; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<div class="banner">FICTITIOUS brokerage portal — portfolio project, no real data or trading.</div>
+
+<div id="login">
+  <h1>Brokerage Portal</h1>
+  <label for="username">Username</label>
+  <input id="username" value="broker" autocomplete="username" />
+  <label for="password">Password</label>
+  <input id="password" type="password" value="demo123" autocomplete="current-password" />
+  <p class="error" id="loginError" hidden>Invalid username or password.</p>
+  <button type="button" onclick="login()">Log in</button>
+</div>
+
+<div id="dashboard">
+  <h1>Today's settlements</h1>
+  <label for="date">Reference date</label>
+  <input id="date" type="date" />
+  <button type="button" onclick="download()">Download today's settlements</button>
+</div>
+
+<script>
+  function yesterday() {
+    const d = new Date();
+    d.setDate(d.getDate() - 1);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+  document.getElementById('date').value = yesterday();
+
+  function login() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    if (username === 'broker' && password === 'demo123') {
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+    } else {
+      document.getElementById('loginError').hidden = false;
+    }
+  }
+
+  function download() {
+    const date = document.getElementById('date').value;
+    window.location.href = '/api/settlements/' + date;
+  }
+</script>
+</body>
+</html>

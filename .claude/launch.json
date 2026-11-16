@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "brokerage-portal-api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["run", "--project", "src/BrokeragePortal.Api", "--urls", "http://localhost:5196"],
+      "port": 5196
+    }
+  ]
+}
