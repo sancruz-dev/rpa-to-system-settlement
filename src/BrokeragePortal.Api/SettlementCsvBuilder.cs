@@ -3,11 +3,13 @@ using System.Text;
 using Dapper;
 using Microsoft.Data.SqlClient;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SettlementProcessing.Tests")]
+
 namespace BrokeragePortal.Api;
 
 public static class SettlementCsvBuilder
 {
-    private sealed record Row(string Document, string Ticker, decimal Amount);
+    internal sealed record Row(string Document, string Ticker, decimal Amount);
 
     public static async Task<string> GenerateAsync(string connectionString, DateOnly day)
     {
@@ -47,7 +49,7 @@ public static class SettlementCsvBuilder
     /// amount, 2 missing rows and 1 extra row. Same input day always produces the same
     /// CSV, since it only depends on the query's stable ordering.
     /// </summary>
-    private static List<Row> InjectDiscrepancies(List<Row> expected)
+    internal static List<Row> InjectDiscrepancies(List<Row> expected)
     {
         if (expected.Count < 10)
             return expected;

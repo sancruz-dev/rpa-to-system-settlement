@@ -8,6 +8,8 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SettlementProcessing.Tests")]
+
 namespace SettlementProcessing.Functions;
 
 public class ProcessSettlementsQueue(IConfiguration configuration, ILogger<ProcessSettlementsQueue> logger)
@@ -59,7 +61,7 @@ public class ProcessSettlementsQueue(IConfiguration configuration, ILogger<Proce
             rows.Count, discrepancies.Count, message.BlobName);
     }
 
-    private static List<SettlementRow> ParseCsv(string content)
+    internal static List<SettlementRow> ParseCsv(string content)
     {
         var rows = new List<SettlementRow>();
         using var reader = new StringReader(content);
