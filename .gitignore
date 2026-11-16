@@ -487,3 +487,6 @@ $RECYCLE.BIN/
 
 # Local Azurite storage emulator data
 /.azurite/
+
+# Personal interview notes, not for the public repo
+/ROTEIRO_ENTREVISTA.md
